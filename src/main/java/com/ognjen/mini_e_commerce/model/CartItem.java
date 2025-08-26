@@ -31,6 +31,8 @@ public class CartItem {
     @Column(nullable = false, precision = 12, scale = 2)
     private BigDecimal totalPrice;
 
+
+
     @PrePersist
     @PreUpdate
     private void calculateTotalPrice() {
