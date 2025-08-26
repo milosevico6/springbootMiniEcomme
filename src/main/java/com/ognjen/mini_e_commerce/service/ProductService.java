@@ -6,11 +6,13 @@ import jakarta.persistence.EntityNotFoundException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 
 import static com.ognjen.mini_e_commerce.specification.ProductSpecification.*;
 
+@Service
 public class ProductService {
     private final ProductRepository repo;
     public ProductService(ProductRepository repo) {

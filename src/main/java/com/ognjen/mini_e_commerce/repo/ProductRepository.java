@@ -1,9 +1,12 @@
 package com.ognjen.mini_e_commerce.repo;
 
 import com.ognjen.mini_e_commerce.model.Product;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface ProductRepository extends JpaRepository<Product, Long>, JpaSpecificationExecutor<Product> {
 
 

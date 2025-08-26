@@ -33,7 +33,7 @@ public class UserService {
 
 
     public Cart ensureCart(User user) {
-        return carts.findByUserid(user.getId()).orElseGet(() ->
+        return carts.findByUser_Id(user.getId()).orElseGet(() ->
                 {
                     Cart c = Cart.builder().user(user).build();
                     return carts.save(c);

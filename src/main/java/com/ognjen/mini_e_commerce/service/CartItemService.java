@@ -3,7 +3,9 @@ package com.ognjen.mini_e_commerce.service;
 import com.ognjen.mini_e_commerce.model.CartItem;
 import com.ognjen.mini_e_commerce.repo.CartItemRepository;
 import jakarta.persistence.EntityNotFoundException;
+import org.springframework.stereotype.Service;
 
+@Service
 public class CartItemService {
     private final CartItemRepository items;
 

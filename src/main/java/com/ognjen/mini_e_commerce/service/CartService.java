@@ -13,6 +13,7 @@ import com.ognjen.mini_e_commerce.repo.CartRepository;
 import com.ognjen.mini_e_commerce.repo.ProductRepository;
 import com.ognjen.mini_e_commerce.repo.UserRepository;
 import jakarta.persistence.*;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import jakarta.validation.*;
 
@@ -22,6 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class CartService {
     private final CartRepository carts;
     private final CartItemRepository items;
@@ -38,7 +40,7 @@ public class CartService {
     }
 
     private Cart ensureCart(Long userId) {
-        return carts.findByUserid(userId).orElseGet(() -> carts.save(Cart.builder().user(getUser(userId)).build()));
+        return carts.findByUser_Id(userId).orElseGet(() -> carts.save(Cart.builder().user(getUser(userId)).build()));
 
     }
     public CartItem addItem(Long userId, @Valid AddToCartRequest req) {
