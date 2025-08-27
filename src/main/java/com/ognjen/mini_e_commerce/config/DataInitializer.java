@@ -8,12 +8,14 @@ import com.ognjen.mini_e_commerce.repo.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.EnumSet;
 import java.util.List;
 
+@Component
 public class DataInitializer implements CommandLineRunner {
     @Autowired
     private ProductRepository productRepository;

@@ -36,12 +36,12 @@ public class CartController {
         return ResponseEntity.ok(cartService.getCart(uid()));
     }
 
-    @PutMapping("/item/{id}")
+    @PutMapping("/item/update/{id}")
     public ResponseEntity<CartItem> update(@PathVariable Long id,@Valid @RequestBody UpdateCartItemRequest req) {
         return ResponseEntity.ok(cartService.updateItem(uid(), id, req));
     }
 
-    @DeleteMapping("/item/{id}")
+    @DeleteMapping("/item/delete/{id}")
     public ResponseEntity<String> delete(@PathVariable Long id) {
         cartService.removeItem(uid(), id);
         return ResponseEntity.ok("Proizvod je uspešno obrisan.");
