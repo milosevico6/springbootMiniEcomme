@@ -5,13 +5,16 @@ import com.ognjen.mini_e_commerce.dto.CartResponse;
 import com.ognjen.mini_e_commerce.dto.UpdateCartItemRequest;
 import com.ognjen.mini_e_commerce.model.CartItem;
 import com.ognjen.mini_e_commerce.service.CartService;
-
+import com.ognjen.mini_e_commerce.security.UserDetailsImpl;
 
 import jakarta.validation.Valid;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+
 
 @RestController
 @RequestMapping("/api/cart")
@@ -23,7 +26,11 @@ public class CartController {
     public CartController(CartService service) {
         this.cartService = service;
     }
-    private Long uid() { return 1L; }
+    private Long uid() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        UserDetailsImpl userDetails = (UserDetailsImpl) auth.getPrincipal();
+        return userDetails.getId();
+    }
 
     @PostMapping("/add")
     public ResponseEntity<CartItem> add(@Valid @RequestBody AddToCartRequest req) {
