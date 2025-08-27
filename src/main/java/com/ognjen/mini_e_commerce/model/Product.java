@@ -9,7 +9,7 @@ import lombok.*;
 import java.math.BigDecimal;
 
 @Getter @Setter @NoArgsConstructor @AllArgsConstructor @Builder
-@Entity
+@Entity@Table(name = "products")
 public class Product {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

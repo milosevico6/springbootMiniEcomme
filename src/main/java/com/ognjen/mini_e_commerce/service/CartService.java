@@ -25,24 +25,31 @@ import java.util.Optional;
 
 @Service
 public class CartService {
-    private final CartRepository carts;
+    private final CartRepository cartRepo;
     private final CartItemRepository items;
     private final ProductRepository products;
-    private final UserRepository users;
+    private final UserRepository userRepo;
 
     public CartService(CartRepository carts, CartItemRepository items,ProductRepository products, UserRepository users) {
-        this.carts = carts; this.items = items; this.products = products; this.users = users;
+        this.cartRepo = carts; this.items = items; this.products = products; this.userRepo = users;
     }
 
     private User getUser(Long userId) {
-        return users.findById(userId).orElseThrow(() -> new EntityNotFoundException("User not found"));
+        return userRepo.findById(userId).orElseThrow(() -> new EntityNotFoundException("User not found"));
 
     }
 
-    private Cart ensureCart(Long userId) {
-        return carts.findByUser_Id(userId).orElseGet(() -> carts.save(Cart.builder().user(getUser(userId)).build()));
-
+    @Transactional
+    protected Cart ensureCart(Long userId) {
+        return cartRepo.findByUser_Id(userId).orElseGet(() -> {
+            User user = userRepo.findById(userId)
+                    .orElseThrow(() -> new EntityNotFoundException("User not found: " + userId));
+            Cart c = new Cart();
+            c.setUser(user);
+            return cartRepo.save(c);
+        });
     }
+
     public CartItem addItem(Long userId, @Valid AddToCartRequest req) {
         Product p = products.findById(req.productId()).orElseThrow(() -> new EntityNotFoundException("Product  not found"));
         if (!p.isActive()) throw new IllegalArgumentException("Product is not active");
