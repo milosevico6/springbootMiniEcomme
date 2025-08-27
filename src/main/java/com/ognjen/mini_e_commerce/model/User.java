@@ -5,6 +5,8 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
+import java.util.Set;
+
 @Getter @Setter @NoArgsConstructor @AllArgsConstructor @Builder
 @Entity @Table(name = "users")
 public class User {
@@ -22,6 +24,15 @@ public class User {
 
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private Cart cart;
+
+    @NotBlank
+    private String password;
+
+    @ElementCollection(fetch = FetchType.EAGER)
+    @Enumerated(EnumType.STRING)
+    @CollectionTable(name="user_roles", joinColumns = @JoinColumn(name="user_id"))
+    @Column(name="role")
+    private Set<UserRoles> roles;
 }
 
 
